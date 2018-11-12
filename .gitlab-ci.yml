@@ -48,6 +48,7 @@ test manifest:
         docker push ${LATEST}
       fi
 
+    - echo "$CI_PROJECT_NAMESPACE"
     # Push the images to the upstream registry
     - |
       if [ "$CI_COMMIT_REF_NAME" = "master" && "$CI_PROJECT_NAMESPACE" = "gstreamer" ]; then
