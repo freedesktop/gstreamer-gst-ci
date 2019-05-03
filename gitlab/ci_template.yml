@@ -17,8 +17,8 @@ variables:
   MANIFEST_IMAGE: 'registry.freedesktop.org/gstreamer/gst-ci/amd64/build-manifest:2019-03-26-196220'
 
   # Branch to track for modules that have no ref specified in the manifest
-  GST_UPSTREAM_BRANCH: 'master'
-  ORC_UPSTREAM_BRANCH: 'master'
+  GST_UPSTREAM_BRANCH: '1.16'
+  ORC_UPSTREAM_BRANCH: '0.4.29'
 
   GIT_STRATEGY: none
   DEFAULT_MESON_ARGS: >
@@ -190,7 +190,7 @@ integration testsuites fedora:
   before_script:
     - rm -f gst-build/build/subprojects/gstreamer-vaapi/gst/vaapi/libgstvaapi.so
   variables:
-    EXTRA_VALIDATE_ARGS: "--timeout-factor=2 --retry-on-failures --check-bugs"
+    EXTRA_VALIDATE_ARGS: "--timeout-factor=2 --retry-on-failures"
     TEST_SUITE: "validate ges"
   except:
     variables:
