@@ -209,7 +209,7 @@ valgrind core:
     TEST_SUITE: "check.gstreamer\\..*"
   only:
     variables:
-      - $CI_PROJECT_NAME == "gstreamer"
+      - $CI_PROJECT_NAME =~ /^(gstreamer|gst-ci)$/
 
 valgrind base:
   extends: '.valgrind fedora x86_64'
@@ -217,7 +217,7 @@ valgrind base:
     TEST_SUITE: "check.gst-plugins-base\\..*"
   only:
     variables:
-      - $CI_PROJECT_NAME =~ /^(gstreamer|gst-plugins-base)$/
+      - $CI_PROJECT_NAME =~ /^(gstreamer|gst-plugins-base|gst-ci)$/
 
 valgrind good:
   extends: '.valgrind fedora x86_64'
@@ -225,7 +225,7 @@ valgrind good:
     TEST_SUITE: "check.gst-plugins-good\\..*"
   only:
     variables:
-      - $CI_PROJECT_NAME =~ /^(gstreamer|gst-plugins-base|gst-plugins-good)$/
+      - $CI_PROJECT_NAME =~ /^(gstreamer|gst-plugins-base|gst-plugins-good|gst-ci)$/
 
 valgrind ugly:
   extends: '.valgrind fedora x86_64'
@@ -233,7 +233,7 @@ valgrind ugly:
     TEST_SUITE: "check.gst-plugins-ugly\\..*"
   only:
     variables:
-      - $CI_PROJECT_NAME =~ /^(gstreamer|gst-plugins-base|gst-plugins-ugly)$/
+      - $CI_PROJECT_NAME =~ /^(gstreamer|gst-plugins-base|gst-plugins-ugly|gst-ci)$/
 
 valgrind bad:
   extends: '.valgrind fedora x86_64'
@@ -241,7 +241,7 @@ valgrind bad:
     TEST_SUITE: "check.gst-plugins-bad\\..*"
   only:
     variables:
-      - $CI_PROJECT_NAME =~ /^(gstreamer|gst-plugins-base|gst-plugins-good|gst-plugins-bad)$/
+      - $CI_PROJECT_NAME =~ /^(gstreamer|gst-plugins-base|gst-plugins-good|gst-plugins-bad|gst-ci)$/
 
 valgrind ges:
   extends: '.valgrind fedora x86_64'
@@ -249,7 +249,7 @@ valgrind ges:
     TEST_SUITE: "check.gst-editing-services\\..*"
   only:
     variables:
-      - $CI_PROJECT_NAME =~ /^(gstreamer|gst-plugins-base|gst-plugins-good|gst-editing-services)$/
+      - $CI_PROJECT_NAME =~ /^(gstreamer|gst-plugins-base|gst-plugins-good|gst-editing-services|gst-ci)$/
 
 # Template for Cerbero GStreamer Build
 #
