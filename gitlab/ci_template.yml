@@ -21,6 +21,7 @@ variables:
   ORC_UPSTREAM_BRANCH: '0.4.29'
 
   GIT_STRATEGY: none
+  MESON_BUILDTYPE_ARGS: --default-library=both
   DEFAULT_MESON_ARGS: >
     --werror
     -Dpython=enabled
@@ -85,7 +86,7 @@ gst indent:
     CXX: "ccache g++"
     CCACHE_BASEDIR: "${CI_PROJECT_DIR}"
     CCACHE_DIR: "${CI_PROJECT_DIR}/ccache"
-    MESON_ARGS: "${DEFAULT_MESON_ARGS}"
+    MESON_ARGS: "${DEFAULT_MESON_ARGS} ${MESON_BUILDTYPE_ARGS}"
 
   script:
     - ccache -z
@@ -122,14 +123,24 @@ build fedora x86_64:
   stage: 'build'
   image: $FEDORA_IMAGE
   variables:
-    MESON_ARGS: "${DEFAULT_MESON_ARGS} -Dsharp=enabled -Domx=enabled -Dgst-omx:target=generic"
+    MESON_ARGS: "${DEFAULT_MESON_ARGS} -Dsharp=enabled -Domx=enabled -Dgst-omx:target=generic ${MESON_BUILDTYPE_ARGS}"
 
 build nodebug fedora x86_64:
   extends: '.build'
   stage: 'build'
   image: $FEDORA_IMAGE
   variables:
-    MESON_ARGS: "${DEFAULT_MESON_ARGS} -Dsharp=enabled -Dgstreamer:gst_debug=false -Domx=enabled -Dgst-omx:target=generic"
+    MESON_ARGS: "${DEFAULT_MESON_ARGS} -Dsharp=enabled -Dgstreamer:gst_debug=false -Domx=enabled -Dgst-omx:target=generic ${MESON_BUILDTYPE_ARGS}"
+
+build static fedora x86_64:
+  extends: 'build fedora x86_64'
+  variables:
+    MESON_BUILDTYPE_ARGS: "--default-library=static -Dintrospection=disabled -Ddoc=disabled"
+
+build static nodebug fedora x86_64:
+  extends: 'build nodebug fedora x86_64'
+  variables:
+    MESON_BUILDTYPE_ARGS: "--default-library=static -Dintrospection=disabled -Ddoc=disabled"
 
 .test:
   stage: 'test'
