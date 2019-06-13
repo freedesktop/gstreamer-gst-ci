@@ -2,7 +2,7 @@
 
 set -e
 
-BRANCH=master
+BRANCH=1.16
 NAMESPACE=gstreamer
 
 WORK_DIR=`mktemp -d -p "$DIR"`
