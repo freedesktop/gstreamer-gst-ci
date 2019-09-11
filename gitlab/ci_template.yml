@@ -35,8 +35,17 @@ variables:
     --variants werror
     --timestamps
 
+.global_retry_policy:
+  retry:
+    max: 2
+    when:
+      - 'runner_system_failure'
+      - 'api_failure'
+
 manifest:
   image: $MANIFEST_IMAGE
+  extends:
+    - '.global_retry_policy'
   stage: 'preparation'
   script:
     - cd /gst-ci
@@ -50,6 +59,8 @@ manifest:
 
 gst indent:
   image: $INDENT_IMAGE
+  extends:
+    - '.global_retry_policy'
   stage: 'preparation'
   variables:
     GIT_STRATEGY: 'fetch'
@@ -76,6 +87,8 @@ gst indent:
 
 .build:
   stage: 'build'
+  extends:
+    - '.global_retry_policy'
   needs:
     - "manifest"
   dependencies:
@@ -147,6 +160,8 @@ build static nodebug fedora x86_64:
 
 .test:
   stage: 'test'
+  extends:
+    - '.global_retry_policy'
   variables:
     # Disable colored output to avoid weird rendering issues
     GST_DEBUG_NO_COLOR: "true"
@@ -284,6 +299,8 @@ valgrind ges:
 .cerbero:
   stage: "build"
   image: $CERBERO_IMAGE
+  extends:
+    - '.global_retry_policy'
   needs:
     - "manifest"
   dependencies:
@@ -346,6 +363,8 @@ valgrind ges:
 
 .build windows:
   image: $WINDOWS_IMAGE
+  extends:
+    - '.global_retry_policy'
   stage: 'build'
   needs:
     - 'manifest'
@@ -602,6 +621,8 @@ build cerbero cross win64:
 #
 .android universal examples:
   image: $ANDROID_IMAGE
+  extends:
+    - '.global_retry_policy'
   stage: 'integrate'
   variables:
     EXAMPLES_HOME: ${CI_PROJECT_DIR}/examples
