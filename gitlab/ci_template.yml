@@ -780,6 +780,7 @@ build cerbero macos x86_64:
 #
 cerbero deps ios universal:
   extends: '.cerbero deps'
+  timeout: '4h'
   variables:
     ARCH: "ios_universal"
     CONFIG: "cross-ios-universal.cbc"
