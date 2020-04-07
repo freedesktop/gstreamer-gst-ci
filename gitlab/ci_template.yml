@@ -12,7 +12,7 @@ variables:
   FEDORA_IMAGE: 'registry.freedesktop.org/gstreamer/gst-ci/amd64/fedora:2019-03-26-196223'
   INDENT_IMAGE: 'registry.freedesktop.org/gstreamer/gst-ci/amd64/gst-indent:2019-03-26-196222'
   MANIFEST_IMAGE: 'registry.freedesktop.org/gstreamer/gst-ci/amd64/build-manifest:2019-03-26-196220'
-  WINDOWS_IMAGE: 'registry.freedesktop.org/gstreamer/gst-ci/amd64/windows:v8'
+  WINDOWS_IMAGE: 'registry.freedesktop.org/gstreamer/gst-ci/amd64/windows:v10'
 
   # Branch to track for modules that have no ref specified in the manifest
   GST_UPSTREAM_BRANCH: '1.16'
