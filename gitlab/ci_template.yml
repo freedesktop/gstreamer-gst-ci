@@ -184,9 +184,11 @@ build nodebug fedora x86_64:
     MESON_ARGS: "${DEFAULT_MESON_ARGS} -Dsharp=enabled -Dgstreamer:gst_debug=false -Domx=enabled -Dgst-omx:target=generic ${MESON_BUILDTYPE_ARGS} --werror"
 
 build static fedora x86_64:
-  extends: 'build fedora x86_64'
+  extends: '.build'
+  image: $FEDORA_IMAGE
   variables:
     MESON_BUILDTYPE_ARGS: "--default-library=static -Dintrospection=disabled -Ddoc=disabled"
+    MESON_ARGS: "${DEFAULT_MESON_ARGS} -Dsharp=enabled -Domx=enabled -Dgst-omx:target=generic ${MESON_BUILDTYPE_ARGS} --werror"
 
 build static nodebug fedora x86_64:
   extends: 'build nodebug fedora x86_64'
